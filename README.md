@@ -38,6 +38,8 @@ After your container is rebuilt and set up,
 log into postgres with the command psql -h localhost -U postgres -d postgres
 make sure you run the migration file : node config/migrationRunner.js migrate
 
+Note: you will need a server to host the database. Otherwise, it will not shows the products page
+
 ## Run your app
 
 Once you have the environment setup, please do the following commands on terminal.
