@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="refresh" content="theurlofthepage.html" />
+    <title>Products</title>
+    <link rel="stylesheet" href="/style/product/product.css" />
+    <link rel="stylesheet" href="/style/product/product-search.css" />
+    
+  </head>
+  <body>
+    <%- include('header.ejs') %>
+    <main>
+      <h1>Products</h1>
+      <p>This is products page</p>
+
+      <div class="products--container">
+        <form class="search--field" action="/products" method="post">
+          <div class="search--group">
+            <label for="keyword">Keyword</label>
+            <input
+              type="text"
+              id="keyword"
+              name="keyword"
+              value="<%= keyword %>"
+              required
+            />
+          </div>
+          <div class="search--group">
+            <label for="category">Category</label>
+            <select name="category" id="category">
+              <option value="<%= category %>"
+                ><%= category.charAt(0).toUpperCase() + category.slice(1);
+                %></option
+              >
+              <option value="all">All</option>
+              <option value="cloth">Cloth</option>
+              <option value="electronics">Electronics</option>
+              <option value="food">Food</option>
+              <option value="drink">Drink</option>
+            </select>
+          </div>
+          <button type="submit">Search</button>
+        </form>
+      </div>
+      <div class="product--list">
+        <p>
+          Filter: 
+          <span style="color: #597445;">
+            <%= keyword %><% if (keyword) { %>, <% } %><%= category.charAt(0).toUpperCase() +
+          category.slice(1); %>
+          </span><% if (keyword !== "") { %>
+            <a href="/products">Reset</a>
+          <% } %>
+        </p>
+        <form
+          class="filter--field"
+          id="filter--form"
+          action="/products/filter"
+          method="post"
+        >
+          <select name="filter" id="filter">
+            <option><%= filter %></option>
+            <option value="Latest">Latest</option>
+            <option value="Oldest">Oldest</option>
+            <option value="Low Price">Low Price</option>
+            <option value="High Price">High Price</option>
+            <option value="Rating">Rating</option>
+          </select>
+          <input type="hidden" name="keyword" value="<%= keyword %>" />
+          <input type="hidden" name="category" value="<%= category %>" />
+        </form>
+
+        <% if(result === false) { %>
+        <p style="color: red">Products not found.</p>
+        <% } %> <% products.forEach(function(product) { %>
+        <div class="product--card">
+          <a href="/products/<%= product.id %>" class="product--content">
+            <div class="product--img">
+              <img
+                src="<%= product.image_url %>"
+                alt="Product img"
+                width="300px"
+                height="200px"
+              />
+            </div>
+            <div class="product--info">
+              <h2><%= product.name %></h2>
+              <p>$<%= product.price %></p>
+              <p>Ratings: <%= product.rating %></p>
+              <p><%= product.updated_at.toISOString().split("T").shift() %></p>
+            </div>
+            
+          </a>
+        </div>
+        <% }) %>
+      </div>
+    </main>
+    <%- include('footer.ejs') %>
+  </body>
+  <script>
+    document.getElementById("filter").addEventListener("change", function () {
+      document.getElementById("filter--form").submit();
+    });
+  </script>
+</html>

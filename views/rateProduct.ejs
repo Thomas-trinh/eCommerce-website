@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Review</title>
+  <link rel="stylesheet" href="/style/reviewStyle.css">
+</head>
+
+<body>
+  <%- include('header.ejs') %>
+
+    <form method="POST" class="reviewForm" action="/ratings/<%= product.id %>/review">
+
+      <h1>Create Review</h1>
+
+      <div class="product-display">
+        <img src="<%= product.image_url %>" alt="<%= product.name %> image">
+        <span class="product-name">
+          <%= product.name %>
+        </span>
+      </div>
+
+      <hr>
+      <h2>Overall Rating</h2>
+
+      <div class="stars">
+        <input type="radio" id="star5" name="rating" value="5" />
+        <label for="star5"></label>
+        <input type="radio" id="star4" name="rating" value="4" />
+        <label for="star4"></label>
+        <input type="radio" id="star3" name="rating" value="3" />
+        <label for="star3"></label>
+        <input type="radio" id="star2" name="rating" value="2" />
+        <label for="star2"></label>
+        <input type="radio" id="star1" name="rating" value="1" />
+        <label for="star1"></label><br>
+      </div>
+
+      <!-- Deselect stars using clearStars function-->
+      <button type="button" onclick="clearStars()">Clear</button>
+
+      <br>
+      <hr>
+
+      <input type="hidden" id="id" name="id" value="<%= product.id %>" />
+
+      <label for="headline">Add a Headline</label><br>
+      <input type="text" id="headline" name="headline" placeholder="Add a headline"><br>
+      <hr>
+
+      <label for="reviewText">Add a Review</label><br>
+      <input type="text" class="reviewText" id="reviewText" name="reviewText" required
+        placeholder="What did you like or dislike about the product? What did you use the product for?"><br>
+      <hr>
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <script>
+      function clearStars() {
+        // Get all radio buttons
+        const stars = document.querySelectorAll('.stars input[type="radio"]');
+
+        // Loop through each star and set checked to false
+        stars.forEach(star => {
+          star.checked = false;
+        });
+      }
+    </script>
+</body>
+
+</html>

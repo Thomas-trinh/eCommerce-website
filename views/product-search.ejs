@@ -1,0 +1,30 @@
+<section>
+    <form  class="search--field" action="/products" method="post">
+        <div class="search--group">
+            <label for="keyword">Keyword</label>
+            <input type="text" id="keyword" name="keyword" required>
+        </div>
+        <div class="search--group">
+            <label for="category">Category</label>
+            <select name="category" id="category">
+                <option value="all">All</option>
+                <option value="cloth">Cloth</option>
+                <option value="electronics">Electronics</option>
+                <option value="food">Food</option>
+                <option value="drink">Drink</option>
+            </select>
+
+        </div>
+        <button type="submit">Search</button>
+    </form>
+
+    <form  class="filter--field" action="/products" method="post">
+        <select name="category" id="category" on:change={() => {console.log("Hello")}>
+            <option value="latest">Latest</option>
+            <option value="oldest">Oldest</option>
+            <option value="low_price">Low Price</option>
+            <option value="high_price">High Price</option>
+            <option value="rating">Rating</option>
+        </select>
+    </form>
+</section>

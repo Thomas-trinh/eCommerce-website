@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout</title>
+    <link rel="stylesheet" href="/style/checkout.css" />
+    <link rel="stylesheet" href="/style/cart.css" />
+  </head>
+  <body>
+    <%- include('header.ejs') %>
+
+    <div class="checkout-container">
+      <h2>Your order has been processed now!</h2>
+      <p>Thank you for shopping with us.</p>
+      <div class="cart-items">
+        <% for (let i = 0; i < products.length; i++) {%>
+        <div class="cart-item">
+          <img
+            src="<%= products[i].image_url %>"
+            alt="<%= products[i].name %> product Image"
+            class="product-image"
+          />
+          <div class="item-info">
+            <h2><%= products[i].name %></h2>
+          </div>
+        </div>
+        <% } %>
+      </div>
+      <a class="checkout--home" href="/products">Continue Shopping</a>
+    </div>
+  </body>
+</html>

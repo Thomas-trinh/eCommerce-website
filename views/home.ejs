@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Company</title>
+    <link rel="stylesheet" href="/style/home.css" />
+  </head>
+  <body>
+    <%- include('header.ejs') %>
+
+    <main>
+      <div class="hero">
+        <div class="hero--container">
+          <h1 class="title">We are here to help</h1>
+          <p>Everything you need is here</p>
+        </div>
+      </div>
+
+      <div class="about">
+        <h1 class="about--title">3 factors why we are chosen</h1>
+        <p class="about--description">We play fair, we work hard, we are in harmony.</p>
+        <div class="about--container">
+          <div class="about--card">
+            <h1>Efficiency</h1>
+            <div class="about--card--img">
+              <img src="/images/logo/performance.png" alt="logo">
+            </div>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae ad est unde asperiores assumenda totam alias non libero, quo a.</p>
+          </div>
+          <div class="about--card">
+            <h1>Productivity</h1>
+            <div class="about--card--img">
+              <img src="/images/logo/productivity.png" alt="logo">
+            </div>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae ad est unde asperiores assumenda totam alias non libero, quo a.</p>
+          </div>
+          <div class="about--card">
+            <h1>Teamwork</h1>
+            <div class="about--card--img">
+              <img src="/images/logo/partnership.png" alt="logo">
+            </div>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae ad est unde asperiores assumenda totam alias non libero, quo a.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact">
+        <img src="/images/contact.jpg" alt="contact picture">
+        <div class="contact--right">
+          <div>
+            <h1>Please don&apos;t hesitate to contact us!</h1>
+            <p class="contact--subtitle">We are waiting for your call anytime</p>
+
+            <p>1234 456 658</p>
+            <p>the-company@test.com</p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <%- include('footer.ejs') %>
+  </body>
+</html>

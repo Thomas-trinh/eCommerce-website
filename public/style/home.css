@@ -1,0 +1,140 @@
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.hero {
+  background-image: url("/images/hero.jpg");
+  width: 100vw;
+  height: 40vw;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero--container {
+  text-align: center;
+  color: white;
+  /* text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black; */
+}
+
+.title {
+  font-size: 40px;
+}
+
+.about {
+  padding: 20px;
+  padding-top: 200px;
+  padding-bottom: 200px;
+}
+
+.about--title {
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+.about--description {
+  text-align: center;
+}
+
+.about--container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.about--card {
+  width: 300px;
+  height: 300px;
+  display: inline-block;
+  text-decoration: none;
+  box-shadow: 2px 2px 5px gray;
+  border-radius: 10px;
+  margin: 30px;
+  padding: 20px;
+  background-color: white;
+}
+
+.about--card--img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.about--card--img img {
+  width: 70px;
+  margin: auto auto;
+}
+
+.contact {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 100px;
+}
+
+.contact img {
+  height: 40vw;
+}
+
+.contact--right {
+  width: 60vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact--subtitle {
+  padding-bottom: 40px;
+}
+
+@media only screen and (max-width: 800px) {
+  .title {
+    font-size: 30px;
+  }
+  .about--title {
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    font-size: 30px;
+  }
+  .about {
+    padding: 0px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+  .about--container {
+    flex-direction: column;
+  }
+  .contact {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      url("/images/contact.jpg");
+    backdrop-filter: blur(50);
+    width: 100vw;
+    height: 100vw;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+  .contact img {
+    display: none;
+  }
+}
+
+.not-found-page {
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

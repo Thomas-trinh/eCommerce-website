@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style/userStyle.css">
+
+  <title>Register</title>
+</head>
+<body>
+  <%- include('header.ejs') %>
+
+  <% if (typeof message !== 'undefined') { %>
+    <p class="error-message"><%= message %> <br> <br>
+    <a href="/login" class="button"> Login </a>
+
+    </p>
+    <% } %>
+
+    <form class="userForm" method="POST" action="/register">
+      <div>
+        <label for="userName">Username:</label>
+        <input type="text" id="userName" name="userName" pattern="^[a-zA-Z0-9 ]+$" title="Must not contain special characters">
+      </div>
+      <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required />
+      </div>
+      <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required><br>
+      </div>
+      <div class="button-box">
+        <button type="submit">Register</button>
+      </div>
+    </form>
+  </body>
+</html>

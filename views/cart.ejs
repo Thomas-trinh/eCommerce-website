@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="/style/cart.css" />
+  </head>
+  <body>
+    <%- include('header.ejs') %>
+
+    <div class="cart-container">
+      <h1>Your Shopping Cart</h1>
+
+      <% if(products.length === 0) { %>
+        <p style="text-align: center;">Currently, you don&apos;t have items.</p>
+      <% } %>
+
+      <div class="cart-items">
+        <% for (let i = 0; i < products.length; i++) {%>
+        <div class="cart-item">
+          <img
+            src="<%= products[i].image_url %>"
+            alt="<%= products[i].name %> product Image"
+            class="product-image"
+          />
+          <div class="item-info">
+            <h2><%= products[i].name %></h2>
+          </div>
+          <form class="item-price" method="post" action="/shoppingCart/remove/<%= i %>">
+            <p>$<%= products[i].price %></p>
+            <button class="remove-item" type="submit">Remove</button>
+          </form>
+        </div>
+        <% } %>
+      </div>
+      <% if(products.length > 0) { %>
+        <div class="checkout">
+          <p class="total--price">$<%= totalPrice %></p>
+          <a class="cart--checkout" href="/checkout">Checkout</a>
+        </div>
+      <% } %>
+    </div>
+  </body>
+</html>

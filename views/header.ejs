@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <link rel="stylesheet" href="/style/layout/header.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet"
+  />
+
+  <body>
+    <div class="navbar">
+      <a href="/">
+        <img src="/images/logo.png" alt="Company logo" width="100" />
+      </a>
+
+      <div class="navbar-right">
+        <section id="no-logged-in-user">
+          <a href="/products">Products</a>
+          <a href="/register" class="register">Register</a>
+          <a href="/login" class="auth login">Login</a>
+        </section>
+
+        <section id="logged-in-user" class="hidden">
+          <a href="/dashboard" id="dashboard" class="hidden">DashBoard</a>
+
+          <a href="/products">Products</a>
+          <a href="/shoppingCart">
+            Cart
+            <span class="items-number"></span>
+          </a>
+          <a href="/user" class="img-box">
+            <img src="/images/slime.jpg" alt="user image" />
+          </a>
+          <a href="/logout" class="auth">Logout</a>
+        </section>
+      </div>
+    </div>
+
+    <script>
+      const loggedInUserSection = document.getElementById("logged-in-user");
+      const cartItemsNumber =
+        document.getElementsByClassName("items-number")[0];
+      const noLoggedInUserSection =
+        document.getElementById("no-logged-in-user");
+      const dashboardLink = document.getElementById("dashboard")
+
+      fetch("/checkToken")
+        .then((res) => {
+          if (!res.ok) console.log("User not logged in yet.");
+          else return res.json();
+        })
+        .then((data) => {
+          if (data) {
+            noLoggedInUserSection.classList.add("hidden");
+            loggedInUserSection.classList.remove("hidden");
+            if (data.user === "admin") dashboardLink.classList.remove("hidden");
+          }
+        })
+        .catch((error) => console.log(error));
+
+      if (cartItemsNumber) {
+        fetch("/shoppingCart/items")
+          .then((res) => res.json())
+          .then((data) => {
+            if (data) {
+              cartItemsNumber.innerHTML = data.number ? data.number : 0;
+            }
+          });
+      }
+    </script>
+  </body>
+</html>
