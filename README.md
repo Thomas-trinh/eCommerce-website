@@ -61,6 +61,14 @@ node test
 node --test --experimental-test-coverage
 ```
 
+## Tech Stack
+- Node.js
+- Express.js
+- PostgreSQL
+- HTML/CSS/JS
+- Mocha
+- Docker
+
 ## Developed by
 - Christian Aboui
 - Kiyohiro Kambayashi
