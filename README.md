@@ -38,7 +38,8 @@ After your container is rebuilt and set up,
 log into postgres with the command psql -h localhost -U postgres -d postgres
 make sure you run the migration file : node config/migrationRunner.js migrate
 
-Note: you will need a server to host the database. Otherwise, it will not shows the products page
+# Note: 
+You will need a server to host the database. Otherwise, it will not shows the products page
 
 ## Run your app
 
@@ -60,7 +61,7 @@ node test
 node --test --experimental-test-coverage
 ```
 
-## Team Members
+## Developed by
 - Christian Aboui
 - Kiyohiro Kambayashi
 - Siri Pothuri
