@@ -1,0 +1,4 @@
+id,name,price,rating,created_at,updated_at,image_url,description,category
+1,Camera - alpha,24.99,3.5,2024-09-10 17:46:46.187861,2024-09-10 17:46:46.187861,https://res.cloudinary.com/dtbk6m3ig/image/upload/v1725956171/pexels-madebymath-90946_tlfavv.jpg,This camera makes object transparent.,electronics
+2,Shoes - beta,32.99,2.7,2024-09-10 17:46:46.187861,2024-09-10 17:46:46.187861,https://res.cloudinary.com/dtbk6m3ig/image/upload/v1665079442/samples/ecommerce/shoes.png,You will run faster than Bolt with this shoes.,cloth
+3,Coca-Cola - Charie,149.99,4.6,2024-09-10 18:23:27.06814,2024-09-10 18:23:27.06814,"https://res.cloudinary.com/dtbk6m3ig/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1725956527/pexels-olenkabohovyk-3819969_jcqud7.jpg",You will be addicted to this product like cocaine!,drink

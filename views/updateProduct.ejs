@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Update product details</title>
+    <link rel="stylesheet" href="/style/home.css" />
+    <link rel="stylesheet" href="/style/updateProduct.css">
+  </head>
+  <body>
+    <%- include('header.ejs') %>
+
+    <div class="container">
+      <form action="/products/<%= product.id %>/updates" method="POST">
+        <div class="image">
+          <img src="<%= product.image_url %>" alt="<%= product.name %> image" width="300" height="300">
+        </div>
+
+        <div class="imageUpdate">
+          <label for="name">Image Url</label>
+          <input
+            type="text"
+            name="image_url"
+            placeholder="Enter the image URL"
+            value="<%= product.image_url %>"
+          />
+        </div>
+
+        <div class="title">
+          <label for="name">Product Name</label>
+          <input
+            type="text"
+            name="name"
+            placeholder="Enter the product title"
+            value="<%= product.name %>"
+          />
+        </div>
+
+        <div class="description">
+          <label for="description">Description</label>
+          <input
+            type="text"
+            name="description"
+            placeholder="Enter the product description"
+            value="<%= product.description %>"
+          />
+        </div>
+
+        <div class="price">
+          <label for="price">Price</label>
+          <input
+            type="number"
+            name="price"
+            placeholder="Enter the product price"
+            value="<%= product.price %>"
+          />
+        </div>
+
+        <div>
+          <button class="submit" type="submit">Submit</button>
+        </div>
+      </form>
+    </div>
+    <%- include('footer.ejs') %>
+  </body>
+</html>
