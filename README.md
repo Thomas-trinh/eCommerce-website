@@ -68,9 +68,3 @@ node --test --experimental-test-coverage
 - HTML/CSS/JS
 - Mocha
 - Docker
-
-## Developed by
-- Christian Aboui
-- Kiyohiro Kambayashi
-- Siri Pothuri
-- Thomas Trinh
