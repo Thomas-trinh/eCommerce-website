@@ -1,8 +1,9 @@
 import express from "express";
-import { showAllProducts, showFilteredProducts, showSearchedProducts } from "../controllers/productController.js";
-import { showProductDetails } from "../controllers/ProductInfo.js";
-import { searchValidation } from "../middleware/product-validation.js";
-import { addPro, addProduct } from '../controllers/addController.js';
+import { showAllProducts, showFilteredProducts, showSearchedProducts } from "../controllers/productController";
+import { showProductDetails } from "../controllers/ProductInfo";
+import { searchValidation } from "../middleware/product-validation";
+import { addPro, addProduct } from '../controllers/addController';
+// const { addPro, addProduct } = require('../dist/controllers/addController');
 import { body } from "express-validator";
 
 const router = express.Router();

@@ -1,18 +1,22 @@
 import express from "express";
-import { productRoutes } from "./routes/productRoutes.js";
-import { ratingRoutes } from "./routes/ratingRoutes.js";
-import { authEventHandler } from "./routes/authEventHandler.js";
+import { productRoutes } from "./routes/productRoutes";
+import { ratingRoutes } from "./routes/ratingRoutes";
+import { authEventHandler } from "./routes/authEventHandler";
 import cookieParser from "cookie-parser";
-import { cartRoutes } from "./routes/shoppingCartRoutes.js";
-import { checkoutRoutes } from "./routes/checkoutRoutes.js";
-import { dashboardRoute } from "./routes/dashboardRoute.js";
-import { updateRoutes } from './routes/updateProduct.js';
+import { cartRoutes } from "./routes/shoppingCartRoutes";
+import { checkoutRoutes } from "./routes/checkoutRoutes";
+import { dashboardRoute } from "./routes/dashboardRoute";
+import { updateRoutes } from './routes/updateProduct';
 import dotenv from "dotenv";
 import session from "express-session";
-import { userRoutes } from "./routes/userRoutes.js";
+import { userRoutes } from "./routes/userRoutes";
 
 // Create an Express application
 export const app = express();
+const sessionSecret = process.env.SESSION_SECRET;
+if (!sessionSecret) {
+  throw new Error("SESSION_SECRET is not defined in environment variables");
+}
 
 // Set static files
 
@@ -23,10 +27,11 @@ app.use(cookieParser());
 dotenv.config({ path: "./controllers/.env" });
 app.use(
   session({
-    secret: process.env.SESSION_SECRET,
+    // secret: process.env.SESSION_SECRET,
+    secret: sessionSecret,
     saveUninitialized: false,
     resave: true,
-    httpOnly: true,
+    // httpOnly: true,
     cookie: { maxAge: 60000 },
   })
 );

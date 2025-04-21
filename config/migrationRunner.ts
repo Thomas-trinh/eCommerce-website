@@ -1,8 +1,10 @@
-// migrationRunner.js
-
 import fs from 'fs';
 import path from 'path';
 import postgres from 'postgres';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Database connection configuration
 const sql = postgres({
@@ -14,9 +16,9 @@ const sql = postgres({
 });
 
 // Get the directory name for the migrations folder
-const migrationsDir = path.join(import.meta.dirname, '../migrations');
+const migrationsDir = path.join(__dirname, '../migrations');
 
-async function applyMigrations() {
+async function applyMigrations(): Promise<void> {
   try {
     // Get all SQL files in the migrations directory
     const files = fs.readdirSync(migrationsDir).filter(file => file.endsWith('.sql'));
@@ -41,12 +43,12 @@ async function applyMigrations() {
   }
 }
 
-async function dropDatabase() {
+async function dropDatabase(): Promise<void> {
     try {
       console.log('Dropping all tables...');
       
       // Get a list of all tables in the database
-      const tables = await sql`
+      const tables = await sql<[{ table_name: string }]>`
         SELECT table_name
         FROM information_schema.tables
         WHERE table_schema = 'public'

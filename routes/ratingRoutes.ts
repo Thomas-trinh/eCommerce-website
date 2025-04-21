@@ -1,5 +1,5 @@
 import express from "express";
-import { getRating, showAllCommentsAndRatings, createReview } from "../controllers/ratingController.js";    // Importing the controller functions
+import { getRating, showAllCommentsAndRatings, createReview } from "../controllers/ratingController";    // Importing the controller functions
 
 const router = express.Router();  // Creating a router object
 

@@ -8,9 +8,9 @@ import {
   showNewPassword,
   handlePasswordReset,
   handleNewPassword,
-} from "../controllers/userController.js";
+} from "../controllers/userController";
 
-import * as userModel from "../controllers/userModel.js";
+import * as userModel from "../controllers/userModel";
 const router = express.Router();
 
 router.get("/register", showRegister); // GET req for register page renders the register page
