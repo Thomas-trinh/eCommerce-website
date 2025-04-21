@@ -1,11 +1,13 @@
-import sql from '../config/dbconfig.js';
+import sql from '../config/dbconfig';
+import { Request, Response } from 'express';
 
-export const addPro = (req, res) => {
+export const addPro = (req : Request, res : Response): void => {
     res.render("addProduct.ejs");
-  }
+};
 
 // Controller to handle product submission from the form
-export const addProduct = async (req, res) => {
+// A Promise is an object that represents the result of an asynchronous operation — something that will finish in the future.
+export const addProduct = async (req : Request, res : Response): Promise<void> => {
   const {name, price, rating, img_url, description, category } = req.body;
 
   try {
@@ -27,8 +29,12 @@ export const addProduct = async (req, res) => {
 
       // Redirect to the route that displays all products after adding
       res.redirect("/products");  // Or "/productRoute" depending on your setup
-  } catch (error) {
-      console.error("Error adding product:", error.message);
-      res.status(500).send(`Internal Server Error: ${error.message}`);
+  } catch (error: unknown) {
+      if(error instanceof Error){
+        console.error("Error adding product:", error.message);
+        res.status(500).send(`Internal Server Error: ${error.message}`);
+      } else {
+        console.error(error);
+      }
   }
 };
