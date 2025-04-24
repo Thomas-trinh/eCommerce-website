@@ -1,9 +1,6 @@
 import { Request, Response } from "express";
 import { CartData } from "../db/cart_db";
-
-interface CustomRequest extends Request {
-  loggedInUser?: { id: number; username?: string };
-}
+import { CustomRequest } from "../interfaces/ICustomRequest";
 
 export function getCheckoutPage(
   getCartDataByUserId: (id: number) => Promise<CartData | undefined>,
