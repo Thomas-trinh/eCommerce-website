@@ -1,10 +1,5 @@
 import sql from "../config/dbconfig";
-
-// Define a type for cart item structure
-export interface CartData {
-  user_id: number;
-  items: string; // JSON string of cart items
-}
+import { CartData } from "../interfaces/models/Cart";
 
 // Get cart data for a specific user
 export const getCartDataByUserId = async (id: number): Promise<CartData | undefined> => {

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { CartData } from "../db/cart_db";
+import { CartData } from "../interfaces/models/Cart";
 import { CustomRequest } from "../interfaces/ICustomRequest";
 
 export function getCheckoutPage(

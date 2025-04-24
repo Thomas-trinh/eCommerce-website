@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import { getUserByUsername } from "../db/user_db";
-import { User } from "../db/user_db";
+import { User } from "../interfaces/models/User";
 
 // Extend Express Request to include custom fields
 interface AuthenticatedRequest extends Request {

@@ -1,7 +1,7 @@
 // controllers/PaymentController.ts
 import { Response } from "express";
 import { IPaymentData } from "../interfaces/IPaymentService";
-import { CartData } from "../db/cart_db";
+import { CartData } from "../interfaces/models/Cart";
 import { CustomRequest } from "../interfaces/ICustomRequest";
 
 export class PaymentController {

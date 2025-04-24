@@ -5,7 +5,7 @@ import {
   updateCartItems,
 } from "../db/cart_db";
 import { getProductById } from "../db/details_db";
-import { Product } from "../db/products_db";
+import { Product } from "../interfaces/models/Product";
 
 // Extend Express Request to include loggedInUser
 interface CustomRequest extends Request {
