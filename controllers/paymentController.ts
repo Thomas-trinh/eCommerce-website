@@ -1,4 +1,3 @@
-// controllers/PaymentController.ts
 import { Response } from "express";
 import { IPaymentData } from "../interfaces/IPaymentService";
 import { CartData } from "../interfaces/models/Cart";
