@@ -1,18 +1,5 @@
 import sql from "../config/dbconfig";
-
-// Product matches your DB schema exactly
-export interface Product {
-  id: number;
-  name: string;
-  price: number;
-  rating: number;
-  reviews: string;
-  created_at: Date;
-  updated_at: Date;
-  image_url: string;
-  description: string;
-  category: string;
-}
+import { Product } from "../interfaces/models/Product";
 
 // Get all products
 export const getAllProducts = async (): Promise<Product[]> => {

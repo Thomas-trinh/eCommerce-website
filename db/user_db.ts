@@ -1,13 +1,5 @@
 import sql from "../config/dbconfig";
-
-export interface User {
-  id: number;
-  username: string;
-  email: string;
-  password_hash: string;
-  created_at: Date;
-  updated_at: Date;
-}
+import { User } from "../interfaces/models/User";
 
 // Get user by username
 export const getUserByUsername = async (

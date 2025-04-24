@@ -1,5 +1,5 @@
 import sql from "../config/dbconfig";
-import { Product } from "./products_db"; //
+import { Product } from "../interfaces/models/Product";
 
 // Get product by ID
 export const getProductById = async (id: number): Promise<Product | undefined> => {

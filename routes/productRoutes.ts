@@ -1,14 +1,17 @@
 import express from "express";
-import { showAllProducts, showFilteredProducts, showSearchedProducts } from "../controllers/productController";
+import { ProductController } from "../controllers/productController";
 import { showProductDetails } from "../controllers/ProductInfo";
-import { searchValidation } from "../middleware/product-validation";
+import { ProductService } from "../services/productService";
 import { addPro, addProduct } from '../controllers/addController';
-// const { addPro, addProduct } = require('../dist/controllers/addController');
+import { ProductRepository } from "../repositories/ProductRepository";
 import { body } from "express-validator";
 
+const repo = new ProductRepository();
 const router = express.Router();
+const productService = new ProductService(repo);
+const productController = new ProductController(productService);
 
-router.get("/", showAllProducts)
+router.get("/", productController.showAll)
 router.get("/add", addPro)
 router.post("/add", addProduct);
 router.post("/", [
@@ -30,8 +33,8 @@ router.post("/", [
         }
         return true;
       })
-  ], showSearchedProducts)
-router.post("/filter", showFilteredProducts)
+  ], productController.search)
+router.post("/filter", productController.filter)
 router.get("/:id", showProductDetails);
 
 
