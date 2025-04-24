@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Payment Page</title>
+  <link rel="stylesheet" href="/style/payment.css" />
+  <style>
+    .hidden { display: none; }
+    .payment-method-fields {
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <%- include('header.ejs') %>
+  </header>
+
+  <main class="payment-page">
+    <div class="payment-layout">
+
+      <!-- LEFT: Payment Options -->
+      <section class="payment-methods">
+        <h2>How would you like to pay?</h2>
+
+        <form action="/processPayment" method="post" class="payment-form">
+          <div class="payment-logos">
+            <label><input type="radio" name="paymentMethod" value="visa" required /> <img src="/images/logo/visa.png" alt="Visa" /></label>
+            <label><input type="radio" name="paymentMethod" value="mastercard" /> <img src="/images/logo/mastercard.png" alt="MasterCard" /></label>
+            <label><input type="radio" name="paymentMethod" value="paypal" /> <img src="/images/logo/paypal.png" alt="PayPal" /></label>
+            <label><input type="radio" name="paymentMethod" value="apple-pay" /> <img src="/images/logo/applePay.png" alt="Apple Pay" /></label>
+          </div>
+
+          <!-- Visa Fields -->
+          <div class="payment-method-fields hidden" data-method="visa">
+            <label for="visa-number">Card Number</label>
+            <input type="tel" id="visa-number" name="visaNumber" pattern="\d{13,16}" />
+
+            <label for="visa-expiry">Expiry Date</label>
+            <input type="month" id="visa-expiry" name="visaExpiry" />
+
+            <label for="visa-cvv">Security Code (CVV)</label>
+            <input type="text" id="visa-cvv" name="visaCvv" pattern="\d{3,4}" />
+          </div>
+
+          <!-- MasterCard Fields -->
+          <div class="payment-method-fields hidden" data-method="mastercard">
+            <label for="mc-number">Card Number</label>
+            <input type="tel" id="mc-number" name="mcNumber" pattern="\d{13,16}" />
+
+            <label for="mc-expiry">Expiry Date</label>
+            <input type="month" id="mc-expiry" name="mcExpiry" />
+
+            <label for="mc-cvv">Security Code (CVV)</label>
+            <input type="text" id="mc-cvv" name="mcCvv" pattern="\d{3,4}" />
+          </div>
+
+          <!-- PayPal Fields -->
+          <div class="payment-method-fields hidden" data-method="paypal">
+            <label for="paypal-email">PayPal Email</label>
+            <input type="email" id="paypal-email" name="paypalEmail" />
+          </div>
+
+          <!-- Apple Pay Fields -->
+          <div class="payment-method-fields hidden" data-method="apple-pay">
+            <p>You will be redirected to complete your payment with Apple Pay.</p>
+          </div>
+
+          <button type="submit" class="pay-button">Continue to secure payment</button>
+          <a href="/shoppingCart" class="cancel-button">Cancel payment</a>
+        </form>
+      </section>
+
+      <!-- RIGHT: Order Summary -->
+      <section class="order-summary">
+        <h3>Order Summary</h3>
+        <% for (let i = 0; i < products.length; i++) { %>
+          <div class="summary-item">
+            <img src="<%= products[i].image_url %>" alt="<%= products[i].name %> image" class="summary-img" />
+            <div class="summary-details">
+              <p><strong><%= products[i].name %></strong></p>
+              <p>$<%= Number(products[i].price).toFixed(2) %></p>
+            </div>
+          </div>
+        <% } %>
+        <div class="summary-total">
+          <p>Shipping: <strong>Free</strong></p>
+          <p>Total: <strong>$<%= totalPrice %></strong></p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <!-- <p>&copy; 2025 Your Store</p> -->
+  </footer>
+
+  <script>
+    const methodRadios = document.querySelectorAll('input[name="paymentMethod"]');
+    const allMethodFields = document.querySelectorAll('.payment-method-fields');
+
+    methodRadios.forEach(radio => {
+      radio.addEventListener("change", () => {
+        allMethodFields.forEach(field => {
+          if (field.getAttribute("data-method") === radio.value) {
+            field.classList.remove("hidden");
+          } else {
+            field.classList.add("hidden");
+          }
+        });
+      });
+    });
+
+    // On page load, hide all
+    window.addEventListener("DOMContentLoaded", () => {
+      allMethodFields.forEach(field => field.classList.add("hidden"));
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+.payment-page {
+    padding: 2rem;
+    background-color: #f5f5f5;
+  }
+  
+  .payment-layout {
+    display: flex;
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .payment-methods {
+    flex: 1;
+    border-right: 1px solid #ddd;
+    padding-right: 2rem;
+  }
+  
+  .payment-methods h2 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .payment-logos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .payment-logos label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+  }
+  
+  .payment-logos img {
+    width: 50px;
+    height: auto;
+  }
+  
+  /* Payment form wrapper */
+.payment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  /* Dynamic input section (Visa, MasterCard, etc.) */
+  .payment-method-fields {
+    margin-top: 1rem;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #fafafa;
+    transition: all 0.3s ease;
+  }
+  
+  .payment-method-fields label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 0.3rem;
+    margin-top: 1rem;
+  }
+  
+  .payment-method-fields input[type="tel"],
+  .payment-method-fields input[type="month"],
+  .payment-method-fields input[type="email"],
+  .payment-method-fields input[type="text"] {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    box-sizing: border-box;
+  }
+  
+  .payment-method-fields p {
+    font-size: 0.95rem;
+    margin: 0;
+    padding: 0.5rem 0;
+    color: #555;
+  }
+  
+  /* Selected method highlight (optional if you want visual feedback) */
+  .payment-logos label input[type="radio"]:checked + img {
+    outline: 2px solid #198754;
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+  
+  
+  .pay-button {
+    background-color: #198754;
+    color: white;
+    padding: 0.75rem;
+    border: none;
+    font-size: 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .cancel-button {
+    color: #e63946;
+    text-decoration: none;
+    text-align: center;
+  }
+  
+  .order-summary {
+    flex: 1;
+    padding-left: 2rem;
+  }
+  
+  .order-summary h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .summary-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .summary-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+  }
+  
+  .summary-details p {
+    margin: 0.2rem 0;
+  }
+  
+  
+  .summary-total p {
+    font-weight: bold;
+    margin-top: 1rem;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .payment-layout {
+      flex-direction: column;
+    }
+  
+    .payment-methods, .order-summary {
+      padding: 0;
+      border: none;
+    }
+  }
+  

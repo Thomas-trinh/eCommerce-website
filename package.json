@@ -1,7 +1,7 @@
 {
   "name": "sc_dev",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "index.ts",
   "type": "commonjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -21,6 +21,7 @@
     "jsonwebtoken": "^9.0.2",
     "nodemailer": "^6.9.15",
     "postgres": "^3.4.5",
+    "stripe": "^18.0.0",
     "supertest": "^7.0.0",
     "toastify-js": "^1.12.0"
   },

@@ -10,6 +10,7 @@ import { updateRoutes } from './routes/updateProduct';
 import dotenv from "dotenv";
 import session from "express-session";
 import { userRoutes } from "./routes/userRoutes";
+import { paymentRoutes } from "./routes/paymentRoute";
 
 // Create an Express application
 export const app = express();
@@ -46,6 +47,8 @@ app.use(authEventHandler); // Routes to User Authentication
 app.use("/shoppingCart", cartRoutes);
 app.use("/checkout", checkoutRoutes);
 app.use("/user", userRoutes);
+
+app.use("/", paymentRoutes);
 
 // Define a route to serve the HTML file
 app.get("/", (req, res) => {

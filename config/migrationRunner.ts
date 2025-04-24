@@ -1,15 +1,15 @@
 import fs from 'fs';
 import path from 'path';
 import postgres from 'postgres';
-import { fileURLToPath } from 'url';
+// import { fileURLToPath } from 'url';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
 
 // Database connection configuration
 const sql = postgres({
   user: 'postgres',
-  host: 'localhost',
+  host: 'localhost',   
   database: 'postgres',
   password: 'postgres',
   port: 5432,
