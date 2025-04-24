@@ -35,12 +35,22 @@ Add this into your devcontainer.json file and rebuild the container:
 
 After your container is rebuilt and set up,
 
-log into postgres with the command psql -h localhost -U postgres -d postgres
-Install ts-node if you haven’t: npm install --save-dev ts-node typescript
+log into postgres with the command 
+```
+psql -h localhost -U postgres -d postgres
+```
+Install ts-node if you haven’t: 
+```
+npm install --save-dev ts-node typescript
+```
 make sure you run the migration file : 
-```node --loader ts-node/esm config/migrationRunner.ts migrate```
+```
+node --loader ts-node/esm config/migrationRunner.ts migrate
+```
 or 
-```npx ts-node config/migrationRunner.ts migrate```
+```
+npx ts-node config/migrationRunner.ts migrate
+```
 
 # Note: 
 You will need a server to host the database. Otherwise, it will not shows the products page
