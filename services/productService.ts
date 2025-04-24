@@ -1,4 +1,3 @@
-// services/ProductService.ts
 import { IProductService } from "../interfaces/IProductService";
 import { IProductRepository } from "../interfaces/IProductRepository";
 import { Product } from "../interfaces/models/Product";
