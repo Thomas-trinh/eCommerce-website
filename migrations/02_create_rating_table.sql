@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS products (
 "image_url" varchar,
 "description" text,
 "category" varchar,
+"quantity" INTEGER,
 PRIMARY KEY ("id")
 );
 
