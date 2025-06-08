@@ -12,11 +12,13 @@ export const getRating = async (request: Request, response: Response): Promise<v
     // }
 
     const product = await getProductById(id);
+    const token = request.cookies.token;
 
     if (product) {
       response.render("rateProduct.ejs", {
         product,
-        id
+        id,
+        loggedIn: Boolean(token)
       });
     } else {
       response.status(404).send("Product not found");

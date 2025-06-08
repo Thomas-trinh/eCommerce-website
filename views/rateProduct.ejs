@@ -46,16 +46,16 @@
 
       <input type="hidden" id="id" name="id" value="<%= product.id %>" />
 
-      <label for="headline">Add a Headline</label><br>
-      <input type="text" id="headline" name="headline" placeholder="Add a headline"><br>
-      <hr>
-
       <label for="reviewText">Add a Review</label><br>
       <input type="text" class="reviewText" id="reviewText" name="reviewText" required
         placeholder="What did you like or dislike about the product? What did you use the product for?"><br>
       <hr>
 
+      <% if (loggedIn) { %>
       <button type="submit">Submit</button>
+      <% } else { %>
+        <p>Log in to write a review</p>
+      <% } %>
     </form>
 
     <script>
