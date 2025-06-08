@@ -51,11 +51,13 @@
             method="post"
             class="trade"
           >
-            <% if (loggedIn) { %>
+            <% if (loggedIn && product.quantity > 0) { %>
               <button class="cart" type="submit">Add to Cart</button>
-            <% } else { %>
+            <% } else if (!loggedIn) { %>
               <button class="cart" type="submit" disabled>Add to Cart</button>
               <p>Please <a href="/login">login</a> to add your product.</p>
+            <% } else { %>
+              <p>Out of stock!</p>
             <% } %>
           </form>
         </div>
@@ -72,29 +74,35 @@
 
           <div class="read-reviews">
             <h3>Customer Reviews</h3>
-            <ul class="review-list">
-              <% for (let i = 3; i < Math.min(13, reviews.length); i++) { %>
-              <li class="review-item">
-                <div class="review-rating">
-                  <strong>Rating:</strong>
-                  <% for (let j = 1; j <= 5; j++) { %> 
-                    <% if (j <= reviews[i].rating) { %>
-                      <span class="fa fa-star checked"></span>
-                    <% } else { %>
-                      <span class="fa fa-star"></span>
-                    <% } %> 
-                  <% } %>
-                </div>
-                <div class="review-comment">
-                  <strong>Comment:</strong> <%= reviews[i].commenttext %>
-                </div>
-                <div class="review-date">
-                  <small>Reviewed on <%= reviews[i].timedate %></small>
-                </div>
-              </li>
-              <% } %>
-            </ul>
+          
+            <% if (reviews.length === 0) { %>
+              <p>No reviews yet. Be the first to write one!</p>
+            <% } else { %>
+              <ul class="review-list">
+                <% for (let i = 0; i < reviews.length; i++) { %>
+                  <li class="review-item">
+                    <div class="review-rating">
+                      <strong>Rating:</strong>
+                      <% for (let j = 1; j <= 5; j++) { %> 
+                        <% if (j <= reviews[i].rating) { %>
+                          <span class="fa fa-star checked"></span>
+                        <% } else { %>
+                          <span class="fa fa-star"></span>
+                        <% } %> 
+                      <% } %>
+                    </div>
+                    <div class="review-comment">
+                      <strong>Comment:</strong> <%= reviews[i].commenttext %>
+                    </div>
+                    <div class="review-date">
+                      <small>Reviewed on <%= reviews[i].timedate %></small>
+                    </div>
+                  </li>
+                <% } %>
+              </ul>
+            <% } %>
           </div>
+          
         </div>
       </div>
     </div>
