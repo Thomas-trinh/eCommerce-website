@@ -2,6 +2,7 @@ import { Response } from "express";
 import { IPaymentData } from "../interfaces/IPaymentService";
 import { CartData } from "../interfaces/models/Cart";
 import { CustomRequest } from "../interfaces/ICustomRequest";
+import { getProductById, updateProductQuantity } from "../db/details_db";
 
 export class PaymentController {
   constructor(
@@ -33,9 +34,23 @@ export class PaymentController {
 
   public handlePayment = async (req: CustomRequest, res: Response): Promise<void> => {
     try {
-      const paymentInfo = this.paymentService.process(req.body);
-      // Save order / audit log here if needed
+      const user = req.loggedInUser;
+    if (!user) {
+      res.status(401).send("Unauthorized");
+      return;
+    }
 
+    const cartData = await this.getCartDataByUserId(user.id);
+    const products = cartData ? JSON.parse(cartData.items) : [];
+
+    for (const item of products) {
+      const product = await getProductById(item.id);
+      if (product) {
+        await updateProductQuantity(item.id, item.quantity);
+      }
+    }
+
+      const paymentInfo = this.paymentService.process(req.body);
       res.redirect("/checkout");
     } catch (error) {
       console.error("Payment error:", error);

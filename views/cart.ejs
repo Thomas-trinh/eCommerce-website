@@ -26,7 +26,19 @@
           />
           <div class="item-info">
             <h2><%= products[i].name %></h2>
+            <input type="hidden" name="products[<%= i %>][id]" value="<%= products[i].id %>" />
+  
+            <label for="quantity_<%= i %>">Quantity:</label>
+            <input
+              type="number"
+              id="quantity_<%= i %>"
+              name="products[<%= i %>][quantity]"
+              value="<%= products[i].quantity || 1 %>"
+              min="1"
+              required
+            />
           </div>
+  
           <form class="item-price" method="post" action="/shoppingCart/remove/<%= i %>">
             <p>$<%= products[i].price %></p>
             <button class="remove-item" type="submit">Remove</button>

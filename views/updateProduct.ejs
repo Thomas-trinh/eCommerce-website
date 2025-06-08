@@ -56,6 +56,18 @@
           />
         </div>
 
+        <div class="quantity">
+          <label for="quantity">Quantity</label>
+          <input
+            type="number"
+            name="quantity"
+            placeholder="Enter available quantity"
+            value="<%= product.quantity || 0 %>"
+            min="0"
+            required
+          />
+        </div>
+
         <div>
           <button class="submit" type="submit">Submit</button>
         </div>

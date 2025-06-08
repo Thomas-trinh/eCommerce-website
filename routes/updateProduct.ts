@@ -3,6 +3,7 @@ import {
   updateProductById,
   getProductById,
   deleteProductById,
+  updateProductQuantity
 } from "../db/details_db";
 
 const router = express.Router();
@@ -34,6 +35,7 @@ router.post("/:id/updates", async (req: Request, res: Response): Promise<void> =
       description: req.body.description,
       price: Number(req.body.price),
       image_url: req.body.image_url,
+      quantity: req.body.quantity
     };
 
     await updateProductById(productId, updatedProduct);
