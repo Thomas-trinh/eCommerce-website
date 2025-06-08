@@ -31,7 +31,7 @@ export const getCart = async (req: CustomRequest, res: Response): Promise<void> 
     }
 
     const cartItems: Product[] = JSON.parse(data.items);
-    const totalPrice = cartItems.reduce((sum, item) => sum + Number(item.price), 0);
+    const totalPrice = cartItems.reduce((sum, item) => sum + Number(item.price) * (item.quantity || 1), 0);
 
     res.render("cart.ejs", {
       products: cartItems,
@@ -70,7 +70,14 @@ export const addItemToCart = async (req: CustomRequest, res: Response): Promise<
       cartItems = JSON.parse(data.items);
     }
 
-    cartItems.push(product);
+    const Index = cartItems.findIndex(item => item.id === product.id);
+
+    if(Index !== -1){
+      cartItems[Index].quantity = (cartItems[Index].quantity || 1) + 1;
+    } else {
+      cartItems.push({...product, quantity: 1});
+    }
+
     await updateCartItems(loggedInUser.id, JSON.stringify(cartItems));
 
     res.redirect("/products");

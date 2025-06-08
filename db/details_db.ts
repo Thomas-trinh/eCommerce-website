@@ -10,7 +10,7 @@ export const getProductById = async (id: number): Promise<Product | undefined> =
 };
 
 // Update product by ID
-type UpdateProductInput = Pick<Product, "name" | "description" | "price" | "image_url">;
+type UpdateProductInput = Pick<Product, "name" | "description" | "price" | "image_url" | "quantity">;
 
 export const updateProductById = async (id: number, updatedProduct: UpdateProductInput): Promise<void> => {
   await sql`
@@ -19,7 +19,8 @@ export const updateProductById = async (id: number, updatedProduct: UpdateProduc
       name = ${updatedProduct.name}, 
       description = ${updatedProduct.description}, 
       price = ${updatedProduct.price}, 
-      image_url = ${updatedProduct.image_url}
+      image_url = ${updatedProduct.image_url},
+      quantity = ${updatedProduct.quantity}
     WHERE id = ${id};
   `;
 };
@@ -30,3 +31,13 @@ export const deleteProductById = async (id: number): Promise<void> => {
     DELETE FROM products WHERE id = ${id};
   `;
 };
+
+// Used to deduct the product quantity after user purchase
+export const updateProductQuantity = async (id: number, quantity: number): Promise<void> => {
+  await sql`
+  UPDATE products
+  SET quantity = quantity - ${quantity},
+      updated_at = CURRENT_TIMESTAMP
+  WHERE id = ${id}
+`;
+}
