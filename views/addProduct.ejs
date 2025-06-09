@@ -22,15 +22,19 @@
                 <input type="number" step="0.01" id="price" name="price" placeholder="Enter product price" required>
             </div>
 
-            <div>
+            <!-- <div>
                 <label for="rating">Rating:</label>
                 <input type="number" id="rating" name="rating" step="0.1" min="0" max="5" required>
-            </div>
+            </div> -->
 
             <div class="image">
-                <label for="img_url">Image URL</label>
-                <input type="url" id="img_url" name="img_url" placeholder="Enter image URL" required>
+                <label>Images</label>
+                <div id="image-inputs">
+                  <input type="url" name="img_urls[]" placeholder="Enter image URL" required />
+                </div>
+                <button type="button" onclick="addImageField()">+ Add Another Image</button>
             </div>
+                         
 
             <div class="description">
                 <label for="description">Description</label>
@@ -59,5 +63,19 @@
     </div>
 
     <%- include('footer.ejs') %>
+
+    <script>
+        function addImageField() {
+          const container = document.getElementById("image-inputs");
+          const input = document.createElement("input");
+          input.type = "url";
+          input.name = "img_urls[]";
+          input.placeholder = "Enter image URL";
+          input.required = true;
+          container.appendChild(document.createElement("br"));
+          container.appendChild(input);
+        }
+      </script>
 </body>
 </html>
+  

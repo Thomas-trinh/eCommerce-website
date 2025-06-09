@@ -1,7 +1,7 @@
 import { test, after } from 'node:test';
 import assert from 'assert';
-import { showProductDetails } from '../controllers/ProductInfo.js'; 
-import sql from '../config/dbconfig.js';
+import { showProductDetails } from '../controllers/ProductInfo'; 
+import sql from '../config/dbconfig';
 
 test('Product is found', async () => {
     const req = { params: { id: '1' } };

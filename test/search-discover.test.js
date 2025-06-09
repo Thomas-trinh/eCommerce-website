@@ -1,9 +1,9 @@
 import { test, after, describe, before } from 'node:test';
 import assert from 'assert';
-import { showAllProducts, showSearchedProducts } from '../controllers/productController.js'; 
-import { showFilteredProducts } from '../controllers/productController.js';
-import sql from '../config/dbconfig.js';
-import { getAllProducts, getFilteredProducts, getSearchedProducts, getSearchedProductsWithCategory } from '../db/products_db.js';
+import { showAllProducts, showSearchedProducts } from '../controllers/productController'; 
+import { showFilteredProducts } from '../controllers/productController';
+import sql from '../config/dbconfig';
+import { getAllProducts, getFilteredProducts, getSearchedProducts, getSearchedProductsWithCategory } from '../db/products_db';
 
 
 // Function testing

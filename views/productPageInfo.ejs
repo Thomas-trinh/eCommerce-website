@@ -35,14 +35,34 @@
         <div class="date"> Published Date: <%= product.updated_at.toISOString().split("T").shift() %> </div>
 
         <div class="rating">
-          <% for (let i = 1; i <= 5; i++) { %> 
-            <% if (i <= product.rating) { %>
+          <% 
+            let avg = 0;
+            if (product.average_rating) {
+              avg = parseFloat(product.average_rating);
+            }
+            const fullStars = Math.floor(avg);
+            const hasHalf = avg - fullStars >= 0.5;
+          %>
+        
+          <% for (let i = 1; i <= 5; i++) { %>
+            <% if (i <= fullStars) { %>
               <span class="fa fa-star checked"></span>
+            <% } else if (i === fullStars + 1 && hasHalf) { %>
+              <span class="fa fa-star-half-o checked"></span>
             <% } else { %>
               <span class="fa fa-star"></span>
-            <% } %> 
+            <% } %>
+          <% } %>
+        
+          <span style="margin-left: 10px; font-weight: bold;">
+            <%= avg.toFixed(1) %>/5
+          </span>
+        
+          <% if (reviews.length > 0) { %>
+            <small>(<%= reviews.length %> reviews)</small>
           <% } %>
         </div>
+                
 
         <div class="price">
           <h2>$<%= product.price %></h2>

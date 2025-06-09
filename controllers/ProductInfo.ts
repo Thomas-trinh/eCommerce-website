@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getProductById } from "../db/details_db";
+import { getProductById, getProductImagesById } from "../db/details_db";
 import { getAllCommentsAndRatings } from "../db/ratings_db";
 
 // Controller to fetch and display product details
@@ -8,16 +8,19 @@ export const showProductDetails = async (request: Request, response: Response): 
     const token = request.cookies.token;
     const id = Number(request.params.id); // Convert string to number
 
-    // if (isNaN(id)) {
-    //   response.status(400).send("Invalid product ID.");
-    // }
+    if (isNaN(id)) {
+      response.status(400).send("Invalid product ID.");
+    }
 
     const productDetails = await getProductById(id);
-    const productReviews = await getAllCommentsAndRatings(id);
+    if (!productDetails) {
+      response.status(404).send("Product not found.");
+    }
 
-    // if (!productDetails) {
-    //   response.status(404).send("Product not found.");
-    // }
+    const productReviews = await getAllCommentsAndRatings(id);
+    const productImages = await getProductImagesById(id);
+
+    productDetails!.images = productImages;
 
     response.render("productPageInfo.ejs", {
       product: productDetails,
