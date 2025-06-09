@@ -1,8 +1,8 @@
 import { suite, test } from 'node:test';
 import assert from 'node:assert';
-import sql from '../config/dbconfig.js';
-import { sendResetEmail } from '../controllers/emailService.js';
-import { handleRegister, handleLogin, handlePasswordReset } from '../controllers/userController.js';
+import sql from '../config/dbconfig';
+import { sendResetEmail } from '../controllers/emailService';
+import { handleRegister, handleLogin, handlePasswordReset } from '../controllers/userController';
 //import jsonwebtoken from 'jsonwebtoken';
 
 suite('user database testing', () => {

@@ -1,8 +1,8 @@
 import { test, suite, after } from 'node:test';
 import assert from 'assert';
-import { getCheckoutPage } from '../controllers/checkoutController.js';
-import { createUserInCartTable, getCartDataByUserId, updateCartItems } from '../db/cart_db.js';
-import sql from "../config/dbconfig.js";
+import { getCheckoutPage } from '../controllers/checkoutController';
+import { createUserInCartTable, getCartDataByUserId, updateCartItems } from '../db/cart_db';
+import sql from "../config/dbconfig";
 
 suite('Checkout Controller Tests', () => {
   

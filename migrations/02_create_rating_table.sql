@@ -1,17 +1,16 @@
 -- Create products table
 CREATE TABLE IF NOT EXISTS products (
-"id" SERIAL,
+"id" SERIAL PRIMARY KEY,
 "name" varchar NOT NULL,
 "price" numeric NOT NULL,
-"rating" numeric,
-"reviews" text,
+-- "rating" numeric,
+-- "reviews" text,
 "created_at" timestamp DEFAULT CURRENT_TIMESTAMP,
 "updated_at" timestamp DEFAULT CURRENT_TIMESTAMP,
 "image_url" varchar,
 "description" text,
 "category" varchar,
-"quantity" INTEGER,
-PRIMARY KEY ("id")
+"quantity" INTEGER
 );
 
 -- Create comments table 
@@ -42,3 +41,16 @@ CREATE TABLE IF NOT EXISTS ratings (
         ON DELETE CASCADE
 );
 
+-- Create product_images table
+CREATE TABLE IF NOT EXISTS product_images (
+    imageID SERIAL PRIMARY KEY,      -- Unique image ID
+    product_id INTEGER NOT NULL,     -- Foreign key to the products table
+    image_url VARCHAR NOT NULL,      -- Image URL
+    alt_text VARCHAR,                -- Optional alt text for accessibility/SEO
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_product_image
+        FOREIGN KEY (product_id)
+        REFERENCES products(id)
+        ON DELETE CASCADE
+);

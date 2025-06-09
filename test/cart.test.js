@@ -6,19 +6,19 @@ import {
   addItemToCart,
   removeCartItem,
   getItemsNumberInCart,
-} from "../controllers/shoppingCartController.js";
+} from "../controllers/shoppingCartController";
 import {
   createUserInCartTable,
   getCartDataByUserId,
   updateCartItems,
-} from "../db/cart_db.js";
-import sql from "../config/dbconfig.js";
-import { getUserByUsername, getUserByID } from "../db/user_db.js";
+} from "../db/cart_db";
+import sql from "../config/dbconfig";
+import { getUserByUsername, getUserByID } from "../db/user_db";
 import {
   deleteProductById,
   getProductById,
   updateProductById,
-} from "../db/details_db.js";
+} from "../db/details_db";
 
 suite("Shopping Cart Controller Tests", () => {
   suite("Success Cases", () => {

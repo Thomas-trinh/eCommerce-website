@@ -1,8 +1,8 @@
 import { test, after, suite, afterEach } from 'node:test';
 import assert from 'assert';
-import { getRating, showAllCommentsAndRatings, createReview } from '../controllers/ratingController.js';
-import { addCommentAndRating, getAllCommentsAndRatings } from '../db/ratings_db.js';
-import sql from '../config/dbconfig.js';
+import { getRating, showAllCommentsAndRatings, createReview } from '../controllers/ratingController';
+import { addCommentAndRating, getAllCommentsAndRatings } from '../db/ratings_db';
+import sql from '../config/dbconfig';
 
 suite('Rating Controller Tests', () => {
     test('getRating should return product details for a valid ID', async () => {

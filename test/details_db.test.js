@@ -1,7 +1,7 @@
 import { test, suite, after } from 'node:test';
 import assert from 'assert';
-import { getProductById, updateProductById, deleteProductById } from '../db/details_db.js';
-import sql from '../config/dbconfig.js';
+import { getProductById, updateProductById, deleteProductById } from '../db/details_db';
+import sql from '../config/dbconfig';
 
 // Suite: Testing product information retrieval
 suite('Product Information Tests', () => {
