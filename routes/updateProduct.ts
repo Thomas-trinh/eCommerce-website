@@ -3,7 +3,8 @@ import {
   updateProductById,
   getProductById,
   deleteProductById,
-  updateProductQuantity
+  updateProductQuantity,
+  updateProductImages
 } from "../db/details_db";
 
 const router = express.Router();
@@ -38,7 +39,21 @@ router.post("/:id/updates", async (req: Request, res: Response): Promise<void> =
       quantity: req.body.quantity
     };
 
+    const imgUrls = Array.isArray(req.body["img_urls[]"])
+      ? req.body["img_urls[]"]
+      : [req.body["img_urls[]"]];
+
+    const images = imgUrls
+      .map((url: string) => url.trim())
+      .filter(Boolean)
+      .map((url: string) => ({
+        image_url: url,
+        alt_text: undefined,
+      }));
+
     await updateProductById(productId, updatedProduct);
+    await updateProductImages(productId, images);
+
     res.redirect(`/products/${productId}`);
   } catch (error) {
     console.error("Error updating product:", error);

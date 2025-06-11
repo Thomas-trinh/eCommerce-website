@@ -37,5 +37,11 @@ router.post("/", [
 router.post("/filter", productController.filter)
 router.get("/:id", showProductDetails);
 
+// Return in json format
+router.get("/", async (req, res) => {
+  const products = await repo.getAll();
+  res.json(products);
+});
+
 
 export const productRoutes = router;

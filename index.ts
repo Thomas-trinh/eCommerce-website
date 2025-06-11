@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import { productRoutes } from "./routes/productRoutes";
 import { ratingRoutes } from "./routes/ratingRoutes";
 import { authEventHandler } from "./routes/authEventHandler";
@@ -19,8 +20,11 @@ if (!sessionSecret) {
   throw new Error("SESSION_SECRET is not defined in environment variables");
 }
 
-// Set static files
+// For frontend
+app.use(cors());
+app.use("/api/products", productRoutes);
 
+// Set static files
 app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

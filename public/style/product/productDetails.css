@@ -227,3 +227,41 @@ h1 {
   color: white; /* White text on hover */
   cursor: pointer;
 }
+
+.carousel {
+  position: relative;
+  width: 80%;
+  margin: auto;
+  overflow: hidden;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.4s ease-in-out;
+}
+
+.carousel-image {
+  min-width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.7);
+  border: none;
+  font-size: 30px;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 1;
+}
+
+.carousel-btn.left {
+  left: 10px;
+}
+
+.carousel-btn.right {
+  right: 10px;
+}
