@@ -16,13 +16,26 @@
 
     <div class="container">
       <div class="container--left">
-        <div class="image">
-          <img
-            id="productImage"
-            src="<%= product.image_url %>"
-            alt="<%= product.name %> image"
-          />
+        <div class="carousel">
+          <button class="carousel-btn left" onclick="moveSlide(-1)">&#10094;</button>
+        
+          <div class="carousel-track">
+            <% if (product.images && product.images.length > 0) { %>
+              <% product.images.forEach((img, index) => { %>
+                <img
+                  class="carousel-image"
+                  src="<%= img.image_url %>"
+                  alt="<%= img.alt_text || product.name %>"
+                />
+              <% }); %>
+            <% } else { %>
+              <img class="carousel-image" src="<%= product.image_url %>" alt="<%= product.name %>" />
+            <% } %>
+          </div>
+        
+          <button class="carousel-btn right" onclick="moveSlide(1)">&#10095;</button>
         </div>
+        
 
         <div id="myModal" class="modal">
           <span class="close">&times;</span>
@@ -157,5 +170,19 @@
         }
       };
     </script>
+    <script>
+      let currentIndex = 0;
+    
+      function moveSlide(direction) {
+        const track = document.querySelector('.carousel-track');
+        const images = document.querySelectorAll('.carousel-image');
+        const total = images.length;
+    
+        currentIndex = (currentIndex + direction + total) % total;
+        const offset = -currentIndex * 100;
+        track.style.transform = `translateX(${offset}%)`;
+      }
+    </script>
+    
   </body>
 </html>

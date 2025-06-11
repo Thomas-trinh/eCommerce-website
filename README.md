@@ -71,7 +71,7 @@ npm start
 To run the test suite and generate coverage reports:
 
 ```
-node test
+npx tsx ...test.js
 node --test --experimental-test-coverage
 ```
 

@@ -17,14 +17,18 @@
         </div>
 
         <div class="imageUpdate">
-          <label for="name">Image Url</label>
-          <input
-            type="text"
-            name="image_url"
-            placeholder="Enter the image URL"
-            value="<%= product.image_url %>"
-          />
-        </div>
+          <label>Image URLs</label>
+          <div id="image-inputs">
+            <% if (product.images && product.images.length > 0) { %>
+              <% product.images.forEach((img) => { %>
+                <input type="url" name="img_urls[]" value="<%= img.image_url %>" required />
+              <% }) %>
+            <% } else { %>
+              <input type="url" name="img_urls[]" placeholder="Enter image URL" required />
+            <% } %>
+          </div>
+          <button type="button" onclick="addImageField()">+ Add Another Image</button>
+        </div>        
 
         <div class="title">
           <label for="name">Product Name</label>
@@ -72,6 +76,18 @@
           <button class="submit" type="submit">Submit</button>
         </div>
       </form>
+      <script>
+        function addImageField() {
+          const container = document.getElementById("image-inputs");
+          const input = document.createElement("input");
+          input.type = "url";
+          input.name = "img_urls[]";
+          input.placeholder = "Enter image URL";
+          input.required = true;
+          container.appendChild(document.createElement("br"));
+          container.appendChild(input);
+        }
+      </script>      
     </div>
     <%- include('footer.ejs') %>
   </body>
