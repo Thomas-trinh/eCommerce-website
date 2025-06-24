@@ -35,7 +35,7 @@ export const getProductById = async (id: number): Promise<Product | undefined> =
 
 
 // Update product by ID
-type UpdateProductInput = Pick<Product, "name" | "description" | "price" | "quantity">;
+type UpdateProductInput = Pick<Product, "name" | "description" | "price" | "quantity" | "category">;
 
 export const updateProductById = async (
   id: number,
@@ -48,10 +48,12 @@ export const updateProductById = async (
       description = ${updatedProduct.description}, 
       price = ${updatedProduct.price}, 
       quantity = ${updatedProduct.quantity},
+      category = ${updatedProduct.category},
       updated_at = CURRENT_TIMESTAMP
     WHERE id = ${id};
   `;
 };
+
 
 
 // Delete product by ID

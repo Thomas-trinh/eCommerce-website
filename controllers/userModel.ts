@@ -38,15 +38,25 @@ export async function checkToken(request: AuthenticatedRequest, response: Respon
   const token = request.cookies.token;
 
   try {
-    if (!token) throw new Error("No Token Found");
+    if (!token) {
+      response.status(401).json({ message: "No token provided" });
+      return;
+    }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { username: string };
     request.username = decoded.username;
 
     response.status(200).json({ user: request.username });
-  } catch (error) {
-    console.error("Token verification failed:", error);
-    response.status(401).send("Unauthorized access");
+  } catch (error: any) {
+    console.error("Token verification failed:", error.name);
+
+    if (error.name === "TokenExpiredError") {
+      response.clearCookie("token");
+      response.status(401).json({ message: "Session expired. Please log in again." });
+      return;
+    }
+
+    response.status(401).json({ message: "Unauthorized access" });
   }
 }
 

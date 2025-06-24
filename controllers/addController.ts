@@ -40,7 +40,7 @@ export const addProduct = async (req: Request, res: Response): Promise<void> => 
     }
 
     console.log(`Product '${name}' added with ${imageUrls.length} image(s)`);
-    res.redirect("/products");
+    res.status(201).json({ message: "Product added successfully", redirect: "/dashboard" });
   } catch (error: unknown) {
     if (error instanceof Error) {
       console.error("Error adding product:", error.message);

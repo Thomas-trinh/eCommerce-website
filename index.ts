@@ -1,4 +1,5 @@
 import express from "express";
+import passport from "passport";
 import cors from "cors";
 import { productRoutes } from "./routes/productRoutes";
 import { ratingRoutes } from "./routes/ratingRoutes";
@@ -12,6 +13,7 @@ import dotenv from "dotenv";
 import session from "express-session";
 import { userRoutes } from "./routes/userRoutes";
 import { paymentRoutes } from "./routes/paymentRoute";
+import webhookRouter from "./middleware/webhook";
 
 // Create an Express application
 export const app = express();
@@ -20,16 +22,13 @@ if (!sessionSecret) {
   throw new Error("SESSION_SECRET is not defined in environment variables");
 }
 
-// For frontend
-app.use(cors());
-app.use("/api/products", productRoutes);
-
 // Set static files
 app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 dotenv.config({ path: "./controllers/.env" });
+
 app.use(
   session({
     // secret: process.env.SESSION_SECRET,
@@ -41,11 +40,43 @@ app.use(
   })
 );
 
+// API Routes (React Frontend Calls This)
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
+
+app.use("/api/products", productRoutes);
+app.use("/api/products", updateRoutes); 
+
+//For Google OAuth
+app.get(
+  "/auth/google",
+  passport.authenticate("google", { scope: ["profile", "email"] })
+);
+
+app.get(
+  "/auth/google/callback",
+  passport.authenticate("google", {
+    failureRedirect: "http://localhost:3000/login",
+    session: true,
+  }),
+  (req, res) => {
+    res.redirect("http://localhost:3000/product"); // or /dashboard, your choice
+  }
+);
+
+app.use("/api", webhookRouter);
+app.use("/api/payment", paymentRoutes);
+
 // Set view engine ejs
+// Only use if using ejs files which is in the views folder
 app.set("view engine", "ejs");
-app.use("/products", updateRoutes); // Need Help here (There are 2 /products in index file)
 app.use("/dashboard", dashboardRoute);
-app.use("/products", productRoutes);
+// app.use("/products", productRoutes);
+// app.use("/products", updateRoutes);
 app.use("/ratings", ratingRoutes);
 app.use(authEventHandler); // Routes to User Authentication
 app.use("/shoppingCart", cartRoutes);

@@ -20,7 +20,7 @@ export const getCart = async (req: CustomRequest, res: Response): Promise<void> 
   try {
     const loggedInUser = req.loggedInUser;
     if (!loggedInUser) {
-      res.status(401).send("Unauthorised access");
+      res.status(401).json({ message: "Unauthorized" });
       return;
     }
 
@@ -31,17 +31,18 @@ export const getCart = async (req: CustomRequest, res: Response): Promise<void> 
     }
 
     const cartItems: Product[] = JSON.parse(data.items);
-    const totalPrice = cartItems.reduce((sum, item) => sum + Number(item.price) * (item.quantity || 1), 0);
+    const totalPrice = cartItems.reduce(
+      (sum, item) => sum + Number(item.price) * (item.quantity || 1),
+      0
+    );
 
-    res.render("cart.ejs", {
+    res.status(200).json({
       products: cartItems,
-      totalPrice: new Intl.NumberFormat("en-IN", {
-        maximumSignificantDigits: 5,
-      }).format(totalPrice),
+      totalPrice: totalPrice.toFixed(2),
     });
   } catch (err) {
     console.error(err);
-    res.status(500).send("Internal Server Error");
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
@@ -50,14 +51,14 @@ export const addItemToCart = async (req: CustomRequest, res: Response): Promise<
   try {
     const loggedInUser = req.loggedInUser;
     if (!loggedInUser) {
-      res.status(401).send("Unauthorised access");
+      res.status(401).json({ message: "Unauthorized" });
       return;
     }
 
     const productId = parseInt(req.params.id);
     const product = await getProductById(productId);
     if (!product) {
-      res.status(404).send("Product not found");
+      res.status(404).json({ message: "Product not found" });
       return;
     }
 
@@ -70,50 +71,50 @@ export const addItemToCart = async (req: CustomRequest, res: Response): Promise<
       cartItems = JSON.parse(data.items);
     }
 
-    const Index = cartItems.findIndex(item => item.id === product.id);
+    const index = cartItems.findIndex(item => item.id === product.id);
 
-    if(Index !== -1){
-      cartItems[Index].quantity = (cartItems[Index].quantity || 1) + 1;
+    if (index !== -1) {
+      cartItems[index].quantity = (cartItems[index].quantity || 1) + 1;
     } else {
-      cartItems.push({...product, quantity: 1});
+      cartItems.push({ ...product, quantity: 1 });
     }
 
     await updateCartItems(loggedInUser.id, JSON.stringify(cartItems));
 
-    res.redirect("/products");
+    res.status(200).json({ message: "Item added to cart", cart: cartItems });
   } catch (err) {
     console.error(err);
-    res.status(500).send("Internal Server Error");
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
 
 // POST /remove/:id
 export const removeCartItem = async (req: CustomRequest, res: Response): Promise<void> => {
   try {
     const loggedInUser = req.loggedInUser;
     if (!loggedInUser) {
-      res.status(401).send("Unauthorised access");
+      res.status(401).json({ message: "Unauthorized" });
       return;
     }
 
     const indexToRemove = parseInt(req.params.id);
     let data = await getCartDataByUserId(loggedInUser.id);
     if (!data) {
-      res.redirect("/shoppingCart");
+      res.status(404).json({ message: "Cart not found" });
       return;
     }
 
     const cartItems: Product[] = JSON.parse(data.items);
-
     if (indexToRemove >= 0 && indexToRemove < cartItems.length) {
       cartItems.splice(indexToRemove, 1);
       await updateCartItems(loggedInUser.id, JSON.stringify(cartItems));
     }
 
-    res.redirect("/shoppingCart");
+    res.status(200).json({ message: "Item removed", cart: cartItems });
   } catch (err) {
     console.error(err);
-    res.status(500).send("Internal Server Error");
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
@@ -134,6 +135,44 @@ export const getItemsNumberInCart = async (req: CustomRequest, res: Response): P
 
     const cartItems: Product[] = JSON.parse(data.items);
     res.status(200).json({ number: cartItems.length });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Internal Server Error");
+  }
+};
+
+export const updateCartQuantity = async (req: CustomRequest, res: Response): Promise<void> => {
+  try {
+    const user = req.loggedInUser;
+    if (!user) {
+      res.status(401).send("Unauthorized");
+      return;
+    }
+
+    const productId = parseInt(req.params.id);
+    const { change } = req.body; // e.g., { change: -1 }
+
+    let cartData = await getCartDataByUserId(user.id);
+    if (!cartData) {
+      res.status(404).send("Cart not found");
+      return;
+    }
+
+    let cartItems: Product[] = JSON.parse(cartData.items);
+    const index = cartItems.findIndex((item) => item.id === productId);
+    if (index === -1){
+       res.status(404).send("Item not found");
+       return;
+    }
+
+    cartItems[index].quantity = (cartItems[index].quantity || 1) + change;
+
+    if (cartItems[index].quantity <= 0) {
+      cartItems.splice(index, 1);
+    }
+
+    await updateCartItems(user.id, JSON.stringify(cartItems));
+    res.status(200).send("Cart updated");
   } catch (err) {
     console.error(err);
     res.status(500).send("Internal Server Error");

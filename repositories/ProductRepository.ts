@@ -4,6 +4,13 @@ import { IProductRepository } from "../interfaces/IProductRepository";
 import { Product } from "../interfaces/models/Product";
 
 export class ProductRepository implements IProductRepository {
+  getById(productId: number) {
+    throw new Error("Method not implemented.");
+  }
+  getImagesByProductId(productId: number) {
+    throw new Error("Method not implemented.");
+  }
+  //For ejs
   async getAll(): Promise<Product[]> {
     return await sql<Product[]>`SELECT * FROM products`;
   }
@@ -11,6 +18,13 @@ export class ProductRepository implements IProductRepository {
   async getBySearch(keyword: string): Promise<Product[]> {
     return await sql<Product[]>`
       SELECT * FROM products WHERE name ILIKE ${'%' + keyword + '%'}
+    `;
+  }
+
+  async getByCategory(category: string): Promise<Product[]> {
+    return await sql<Product[]>`
+      SELECT * FROM products
+      WHERE LOWER(category) = LOWER(${category})
     `;
   }
 

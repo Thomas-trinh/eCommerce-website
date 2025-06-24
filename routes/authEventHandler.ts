@@ -16,13 +16,12 @@ const router = express.Router();
 router.get("/register", showRegister); // GET req for register page renders the register page
 router.post("/register", handleRegister); //On a post request on the register form, the registration function is called
 
+// For ejs
 router.get("/login", showLogin); // GET req for login page renders the login page
 router.post("/login", handleLogin); //On a post request on the login form, the login function is called
 
-
 router.get("/token/:username?", userModel.createToken); //creates token on login
 router.get("/checkToken", userModel.checkToken); //checks token when needed
-
 router.get("/logout", userModel.logout); //Deletes token on logout
 
 router.get("/reset-password", showresetPassword); // GET req for password reset page renders the password reset page

@@ -36,7 +36,8 @@ router.post("/:id/updates", async (req: Request, res: Response): Promise<void> =
       description: req.body.description,
       price: Number(req.body.price),
       image_url: req.body.image_url,
-      quantity: req.body.quantity
+      quantity: req.body.quantity,
+      category: req.body.category,
     };
 
     const imgUrls = Array.isArray(req.body["img_urls[]"])
@@ -54,7 +55,11 @@ router.post("/:id/updates", async (req: Request, res: Response): Promise<void> =
     await updateProductById(productId, updatedProduct);
     await updateProductImages(productId, images);
 
-    res.redirect(`/products/${productId}`);
+    // res.redirect(`/products/${productId}`);
+    res.json({
+      message: "Product updated successfully!",
+      redirect: "/dashboard", // or `/products/${productId}` if needed
+    });    
   } catch (error) {
     console.error("Error updating product:", error);
     res.status(500).send("Internal Server Error");

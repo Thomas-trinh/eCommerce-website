@@ -17,16 +17,27 @@ export const showProductDetails = async (request: Request, response: Response): 
       response.status(404).send("Product not found.");
     }
 
-    const productReviews = await getAllCommentsAndRatings(id);
+    // const productReviews = await getAllCommentsAndRatings(id);
+    const productReviews = await getAllCommentsAndRatings(id) || [];
     const productImages = await getProductImagesById(id);
 
     productDetails!.images = productImages;
 
-    response.render("productPageInfo.ejs", {
-      product: productDetails,
+    //For React
+    response.json({
+      product: {
+        ...productDetails,
+        images: productImages,
+      },
       reviews: productReviews,
-      loggedIn: Boolean(token),
     });
+
+    // For ejs
+    // response.render("productPageInfo.ejs", {
+    //   product: productDetails,
+    //   reviews: productReviews,
+    //   loggedIn: Boolean(token),
+    // });
 
   } catch (error) {
     console.error("Error fetching product details:", error);

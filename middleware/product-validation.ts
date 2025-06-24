@@ -6,7 +6,7 @@ export const searchValidation = () => [
   body("keyword")
     .custom((value) => !/<\/?[^>]+(>|$)/.test(value))
     .withMessage("HTML tags are not allowed"),
-
+ 
   // Disallow SQL keywords in 'inputField'
   body("inputField")
     .custom((value) =>

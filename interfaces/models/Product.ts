@@ -1,15 +1,15 @@
 export interface Product {
-    id: number;
-    name: string;
-    price: number;
-    description: string;
-    category: string;
-    quantity: number;
-    image_url?: string;
-    images?: ProductImage[];
-    average_rating?: string; // added field
-  }
-  
+  id: number;
+  name: string;
+  price: number;
+  description: string;
+  category: string;
+  quantity: number;
+  image_url?: string;
+  images?: ProductImage[];
+  average_rating?: string; // added field
+}
+
 
 export interface ProductImage {
     image_url: string;
