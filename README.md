@@ -52,6 +52,10 @@ or
 npx ts-node config/migrationRunner.ts migrate
 ```
 
+```
+npm install passport passport-google-oauth20 express-session
+```
+
 # Note: 
 You will need a server to host the database. Otherwise, it will not shows the products page
 
