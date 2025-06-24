@@ -1,3 +1,10 @@
-node_modules
+# Node dependencies
+node_modules/
 
+# Environment files
+.env
+**/.env
+controllers/.env
+
+# Lock file (optional, but here’s guidance below)
 package-lock.json
