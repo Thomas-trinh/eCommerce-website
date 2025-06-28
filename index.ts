@@ -14,6 +14,7 @@ import session from "express-session";
 import { userRoutes } from "./routes/userRoutes";
 import { paymentRoutes } from "./routes/paymentRoute";
 import webhookRouter from "./middleware/webhook";
+import "./middleware/passport"
 
 // Create an Express application
 export const app = express();

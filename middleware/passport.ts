@@ -18,7 +18,17 @@ passport.use(
 
       // lookup user in db, or create
       const user = await getUserByEmail(email) || await createUser({ username, email });
+      console.log("User returned from DB:", user);
       return done(null, user);
     }
   )
 );
+
+passport.serializeUser((user: any, done) => {
+  done(null, user.email);
+});
+
+passport.deserializeUser(async (email: string, done) => {
+  const user = await getUserByEmail(email);
+  done(null, user);
+});

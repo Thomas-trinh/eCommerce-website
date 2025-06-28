@@ -61,7 +61,15 @@ export async function checkToken(request: AuthenticatedRequest, response: Respon
 }
 
 // Logout and clear the token cookie
-export async function logout(request: Request, response: Response): Promise<void> {
-  response.clearCookie("token");
-  response.redirect("/");
+export function logout(req: Request, res: Response) {
+  try {
+    res.clearCookie("token");
+    req.session?.destroy(() => {
+      res.status(200).json({ message: "Logged out successfully" });
+    });
+  } catch (err) {
+    console.error("Logout error:", err);
+    res.status(500).json({ message: "Could not log out" });
+  }
 }
+
