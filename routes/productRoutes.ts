@@ -14,13 +14,16 @@ const productController = new ProductController(productService);
 
 // Return in json format
 router.get("/", async (req, res) => {
-  const category = req.query.category;
+  const category = req.query.category as string | undefined;
+  const filter = req.query.filter as string | undefined;
 
   try {
     let products;
 
     if (category) {
-      products = await repo.getByCategory(category as string);
+      products = await repo.getByCategory(category);
+    } else if (filter) {
+      products = await repo.getByFilter(filter);
     } else {
       products = await repo.getAll();
     }
@@ -31,6 +34,7 @@ router.get("/", async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 });
+
 
 router.get("/:id", showProductDetails);
 
