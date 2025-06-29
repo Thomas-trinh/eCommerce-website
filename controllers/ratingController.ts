@@ -7,22 +7,24 @@ export const getRating = async (request: Request, response: Response): Promise<v
   const id = Number(request.params.id);
 
   try {
-    // if (isNaN(id)) {
-    //   response.status(400).send("Invalid product ID");
-    // }
-
     const product = await getProductById(id);
     const token = request.cookies.token;
 
     if (product) {
-      response.render("rateProduct.ejs", {
+      // response.render("rateProduct.ejs", {
+      //   product,
+      //   id,
+      //   loggedIn: Boolean(token)
+      // });
+      response.json({
         product,
         id,
         loggedIn: Boolean(token)
-      });
+      })
     } else {
       response.status(404).send("Product not found");
     }
+
   } catch (error) {
     console.error("Error fetching product for rating:", error);
     response.status(500).send("Server error");
@@ -32,17 +34,19 @@ export const getRating = async (request: Request, response: Response): Promise<v
 // Create a new review
 export const createReview = async (request: Request, response: Response): Promise<void> => {
   const id = Number(request.params.id);
+  const token = request.cookies.token;
+
+  if(!token){
+    response.status(401).json({ message: "Unauthorised"});
+    return;
+  }
 
   try {
-    // if (isNaN(id)) {
-    //   response.status(400).send("Invalid product ID");
-    // }
-
     const { reviewText, rating } = request.body;
-
-    // Optionally validate rating is a number
     await addCommentAndRating(id, reviewText, Number(rating));
-    response.redirect(`/products/${id}`);
+    // response.redirect(`/products/${id}`);
+
+    response.status(201).json({ message: "Review added successfully"});
   } catch (error) {
     console.error("Error creating review:", error);
     response.status(500).send("Server error");
@@ -54,16 +58,13 @@ export const showAllCommentsAndRatings = async (request: Request, response: Resp
   const id = Number(request.params.id);
 
   try {
-    // if (isNaN(id)) {
-    //   response.status(400).send("Invalid product ID");
-    // }
-
     const comments = await getAllCommentsAndRatings(id);
 
-    response.render("productPageInfo.ejs", {
-      id,
-      comments
-    });
+    // response.render("productPageInfo.ejs", {
+    //   id,
+    //   comments
+    // });
+    response.json(comments);
   } catch (error) {
     console.error("Failed to load comments and ratings:", error);
     response.status(500).send("Server error");

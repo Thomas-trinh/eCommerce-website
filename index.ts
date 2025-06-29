@@ -51,6 +51,8 @@ app.use(
 
 app.use("/api/products", productRoutes);
 app.use("/api/products", updateRoutes); 
+app.use("/api", ratingRoutes);
+
 
 //For Google OAuth
 app.get(
@@ -74,11 +76,11 @@ app.use("/api/payment", paymentRoutes);
 
 // Set view engine ejs
 // Only use if using ejs files which is in the views folder
-app.set("view engine", "ejs");
+// app.set("view engine", "ejs");
 app.use("/dashboard", dashboardRoute);
 // app.use("/products", productRoutes);
 // app.use("/products", updateRoutes);
-app.use("/ratings", ratingRoutes);
+// app.use("/ratings", ratingRoutes);
 app.use(authEventHandler); // Routes to User Authentication
 app.use("/shoppingCart", cartRoutes);
 app.use("/checkout", checkoutRoutes);
@@ -86,28 +88,32 @@ app.use("/user", userRoutes);
 
 app.use("/", paymentRoutes);
 
+
+
+
+
 // Define a route to serve the HTML file
-app.get("/", (req, res) => {
-  res.render("home.ejs");
-});
+// app.get("/", (req, res) => {
+//   res.render("home.ejs");
+// });
 
-// Redirect to page not found page
-app.get("*", (req, res) => {
-  res.status(404);
+// // Redirect to page not found page
+// app.get("*", (req, res) => {
+//   res.status(404);
 
-  if (req.accepts("html")) {
-    res.render("404");
-  }
+//   if (req.accepts("html")) {
+//     res.render("404");
+//   }
 
-  // respond with json
-  if (req.accepts("json")) {
-    res.json({ error: "Not found" });
-    return;
-  }
+//   // respond with json
+//   if (req.accepts("json")) {
+//     res.json({ error: "Not found" });
+//     return;
+//   }
 
-  // default to plain-text. send()
-  res.type("txt").send("Not found");
-});
+//   // default to plain-text. send()
+//   res.type("txt").send("Not found");
+// });
 
 // Start the server
 const PORT = process.env.PORT || 4000;
