@@ -14,6 +14,7 @@ import session from "express-session";
 import { userRoutes } from "./routes/userRoutes";
 import { paymentRoutes } from "./routes/paymentRoute";
 import webhookRouter from "./middleware/webhook";
+import jwt from "jsonwebtoken";
 import "./middleware/passport"
 
 // Create an Express application
@@ -50,7 +51,7 @@ app.use(
 );
 
 app.use("/api/products", productRoutes);
-app.use("/api/products", updateRoutes); 
+app.use("/api/products", updateRoutes);
 app.use("/api", ratingRoutes);
 
 
@@ -60,16 +61,37 @@ app.get(
   passport.authenticate("google", { scope: ["profile", "email"] })
 );
 
+
 app.get(
   "/auth/google/callback",
   passport.authenticate("google", {
     failureRedirect: "http://localhost:3000/login",
-    session: true,
+    session: false,
   }),
   (req, res) => {
-    res.redirect("http://localhost:3000/product"); // or /dashboard, your choice
+    if (!req.user) {
+      return res.redirect("http://localhost:3000/login");
+    }
+
+    const token = jwt.sign(
+      { email: (req.user as any).email, id: (req.user as any).id },
+      process.env.JWT_SECRET!,
+      { expiresIn: "2h" }
+    );
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: false,        // use true ONLY if using HTTPS
+      sameSite: "lax",      // "lax" allows cookie across subdomains or different ports
+    });
+
+
+    console.log("JWT token set as cookie");
+
+    res.redirect("http://localhost:3000/product");
   }
 );
+
 
 app.use("/api", webhookRouter);
 app.use("/api/payment", paymentRoutes);
